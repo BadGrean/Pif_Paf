@@ -74,21 +74,25 @@
     <LinkIncremental>true</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)\Pif_Paf\lib\SDL2\include;$(SolutionDir)\Pif_Paf\lib\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)\Pif_Paf\lib\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)\Pif_Paf\lib\SDL2\include;$(SolutionDir)\Pif_Paf\lib\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)\Pif_Paf\lib\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)\Pif_Paf\lib\SDL2\include;$(SolutionDir)\Pif_Paf\lib\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)\Pif_Paf\lib\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)\Pif_Paf\lib\SDL2\include;$(SolutionDir)\Pif_Paf\lib\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)\Pif_Paf\lib\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -159,7 +163,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="headers\Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
