@@ -8,9 +8,10 @@ Player* player = nullptr;
 
 int main(int argc, char *argv[])
 {
-	game->dataInit();
+	
 	game = new Game();
 	game->init("Pif Paf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, true);
+	game->dataInit();
 	while (game->running())
 	{
 		game->handleEvents();

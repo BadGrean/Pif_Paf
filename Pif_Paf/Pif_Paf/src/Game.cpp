@@ -21,8 +21,8 @@ void Game::dataInit()
 
 	dstPlayerRect.x = 0;
 	dstPlayerRect.y = 0;
-	dstPlayerRect.h = 32;
-	dstPlayerRect.w = 32;
+	dstPlayerRect.h = sizeH;
+	dstPlayerRect.w = sizeW;
 
 	dstTargetRect.x = 100;
 	dstTargetRect.y = 100;
@@ -88,12 +88,14 @@ void Game::handleEvents()
 	case SDL_MOUSEBUTTONDOWN: //sets Player position to mouseclick cords
 		posX = event.button.x;
 		posY = event.button.y;
+		speedX = 0;
 		speedY = 0;
 		break;
 
 	case SDL_KEYDOWN:
-		if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) //after pressing Esc button
+		switch (event.key.keysym.scancode)
 		{
+		case SDL_SCANCODE_ESCAPE:  //after pressing Esc button
 			isPaused = !isPaused;  //for later use 
 			if (paused())
 			{
@@ -104,6 +106,22 @@ void Game::handleEvents()
 			}
 			dstTargetRect.x = rand() % windowSizeX + 1; //places Target randomly 
 			dstTargetRect.y = rand() % windowSizeY + 1;
+			break;
+
+		case SDL_SCANCODE_UP:
+			speedY -= 200;
+			break;
+		case SDL_SCANCODE_DOWN:
+			speedY += 200;
+			break;
+		case SDL_SCANCODE_LEFT:
+			speedX -= 200;
+			break;
+		case SDL_SCANCODE_RIGHT:
+			speedX += 200;
+			break;
+		default:
+			break;
 		}
 		break;
 
@@ -115,8 +133,11 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	posX++;
+	//posX++;
+	speedX = speedX + acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
+	posX = posX + speedX * (time() - lastFrameTime()) / 1000;
 	dstPlayerRect.x = int(posX);
+
 	speedY = speedY + acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
 	posY = posY + speedY * (time() - lastFrameTime()) / 1000;
 	dstPlayerRect.y = int(posY);

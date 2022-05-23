@@ -30,6 +30,7 @@ private:
 	double posX = 0, posY = 0; //player (probowalem zrobic friend class ale to nie banglalo)
 	int acceleration = 100;
 	double speedX = 0, speedY = 0;
+	int sizeH = 32, sizeW = 32;
 };
 
 class Player
