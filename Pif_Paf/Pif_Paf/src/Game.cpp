@@ -44,7 +44,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		std::cout << "Subsystems initialised\n";
 
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags); //creates window
+		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		if (window)
 		{
 			SDL_GetWindowSize(window, &windowSizeX, &windowSizeY);
@@ -64,7 +64,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 	SDL_Surface* tmpSurface = IMG_Load("assets/Player.png");
-	playerTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface); //adds image to renderer
+	playerTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 	SDL_FreeSurface(tmpSurface);
 	tmpSurface = IMG_Load("assets/Target.svg.png");
 	targetTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
@@ -86,7 +86,7 @@ void Game::handleEvents()
 		break;
 
 	case SDL_MOUSEBUTTONDOWN: 
-		if (event.button.button == SDL_BUTTON_LEFT)//sets Player position to mouse cords left-click
+		if (event.button.button == SDL_BUTTON_LEFT)
 		{
 		Player::posX = event.button.x;
 		Player::posY = event.button.y;
@@ -98,8 +98,8 @@ void Game::handleEvents()
 	case SDL_KEYDOWN:
 		switch (event.key.keysym.scancode)
 		{
-		case SDL_SCANCODE_ESCAPE:  //after pressing Esc button
-			isPaused = !isPaused;  //for later use 
+		case SDL_SCANCODE_ESCAPE:  
+			isPaused = !isPaused;  //for later use menu 
 			if (paused())
 			{
 				SDL_RenderCopy(renderer, pauseTexture, NULL, &dstPlayerRect);
@@ -107,7 +107,7 @@ void Game::handleEvents()
 				SDL_Delay(3000);//instead of menu
 				setLastFrameTime();
 			}
-			dstTargetRect.x = rand() % windowSizeX + 1; //places Target randomly 
+			dstTargetRect.x = rand() % windowSizeX + 1; 
 			dstTargetRect.y = rand() % windowSizeY + 1;
 			break;
 
@@ -136,8 +136,7 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	//posX++;
-	Player::speedX = Player::speedX;// +Player::acceleration * (time() - lastFrameTime()) / 1000;
+	Player::speedX = Player::speedX;
 	Player::posX = Player::posX + Player::speedX * (time() - lastFrameTime()) / 1000;
 	dstPlayerRect.x = (int(Player::posX)%windowSizeX+windowSizeX)%windowSizeX;
 
@@ -151,9 +150,9 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, playerTexture, NULL, &dstPlayerRect); //pre-render image at given pos
+	SDL_RenderCopy(renderer, playerTexture, NULL, &dstPlayerRect);
 	SDL_RenderCopy(renderer, targetTexture, NULL, &dstTargetRect);
-	SDL_RenderPresent(renderer); //pushes render to window
+	SDL_RenderPresent(renderer);
 }
 
 

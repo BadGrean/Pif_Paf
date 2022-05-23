@@ -33,7 +33,6 @@ public:
 	unsigned int time() { return SDL_GetTicks(); }
 	unsigned int lastFrameTime() { return lastTime; } //da sie uproscic, ale nie myslalem o tym
 	void setLastFrameTime() { lastTime = time(); }
-	//void pauseMenu();
 private:
 	bool isRunning, isPaused = false;
 	SDL_Window* window;

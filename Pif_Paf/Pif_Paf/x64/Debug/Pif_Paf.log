@@ -1,6 +1,4 @@
 ﻿  Game.cpp
-  Music.cpp
-D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Music.cpp(13,13): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
   main.cpp
   Generowanie kodu...
   Pif_Paf.vcxproj -> D:\Git_Projekt\Pif_Paf\x64\Debug\Pif_Paf.exe
