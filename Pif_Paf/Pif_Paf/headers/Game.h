@@ -40,7 +40,7 @@ private:
 	SDL_Renderer* renderer;
 	int windowSizeX, windowSizeY;
 	unsigned int currentTime, lastTime = 0;
-
 };
+
 
 

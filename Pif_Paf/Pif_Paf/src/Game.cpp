@@ -85,11 +85,14 @@ void Game::handleEvents()
 		isRunning = false;
 		break;
 
-	case SDL_MOUSEBUTTONDOWN: //sets Player position to mouseclick cords
+	case SDL_MOUSEBUTTONDOWN: 
+		if (event.button.button == SDL_BUTTON_LEFT)//sets Player position to mouse cords left-click
+		{
 		Player::posX = event.button.x;
 		Player::posY = event.button.y;
 		Player::speedX = 0;
 		speedY = 0;
+		}
 		break;
 
 	case SDL_KEYDOWN:
@@ -134,13 +137,13 @@ void Game::handleEvents()
 void Game::update()
 {
 	//posX++;
-	Player::speedX = Player::speedX + Player::acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
+	Player::speedX = Player::speedX;// +Player::acceleration * (time() - lastFrameTime()) / 1000;
 	Player::posX = Player::posX + Player::speedX * (time() - lastFrameTime()) / 1000;
-	dstPlayerRect.x = int(Player::posX);
+	dstPlayerRect.x = (int(Player::posX)%windowSizeX+windowSizeX)%windowSizeX;
 
 	Player::speedY = Player::speedY + Player::acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
 	Player::posY = Player::posY + Player::speedY * (time() - lastFrameTime()) / 1000;
-	dstPlayerRect.y = int(Player::posY);
+	dstPlayerRect.y = (int(Player::posY)%windowSizeY+windowSizeY)%windowSizeY; //aby modulo z ujemnych dzialalo poprawnie
 
 }
 

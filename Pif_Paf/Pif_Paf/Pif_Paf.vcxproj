@@ -165,9 +165,11 @@
   <ItemGroup>
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Music.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Game.h" />
+    <ClInclude Include="headers\Music.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
