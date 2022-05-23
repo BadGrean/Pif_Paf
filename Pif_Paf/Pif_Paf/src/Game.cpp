@@ -137,13 +137,39 @@ void Game::handleEvents()
 void Game::update()
 {
 	Player::speedX = Player::speedX;
-	Player::posX = Player::posX + Player::speedX * (time() - lastFrameTime()) / 1000;
-	dstPlayerRect.x = (int(Player::posX)%windowSizeX+windowSizeX)%windowSizeX;
-
 	Player::speedY = Player::speedY + Player::acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
-	Player::posY = Player::posY + Player::speedY * (time() - lastFrameTime()) / 1000;
-	dstPlayerRect.y = (int(Player::posY)%windowSizeY+windowSizeY)%windowSizeY; //aby modulo z ujemnych dzialalo poprawnie
 
+	Player::posX = Player::posX + Player::speedX * (time() - lastFrameTime()) / 1000;
+	Player::posY = Player::posY + Player::speedY * (time() - lastFrameTime()) / 1000;
+
+	
+	//walls loop back
+	dstPlayerRect.x = (int(Player::posX) % windowSizeX + windowSizeX) % windowSizeX;
+	dstPlayerRect.y = (int(Player::posY) % windowSizeY + windowSizeY) % windowSizeY; //aby modulo z ujemnych dzialalo poprawnie
+
+
+	//walls bounce   (a bit buggy)
+	if (Player::posX >= windowSizeX)
+	{
+		dstPlayerRect.x = windowSizeX - int(Player::posX) % windowSizeX;
+		Player::speedX *= -1;
+	}
+	if (Player::posX < 0)
+	{
+		dstPlayerRect.x = -(int(Player::posX) % windowSizeX);
+		Player::speedX *= -1;
+	}
+	if (Player::posY >= windowSizeY)
+	{
+		dstPlayerRect.y = windowSizeY - int(Player::posY) % windowSizeY;
+		Player::speedY *= -1;
+	}
+	if (Player::posY < 0)
+	{
+		dstPlayerRect.y = -(int(Player::posY) % windowSizeY);
+		Player::speedY *= -1;
+	}
+	
 }
 
 
