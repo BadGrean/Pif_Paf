@@ -2,7 +2,21 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <iostream>
-class Game
+
+class Player
+{
+public:
+
+private:
+	double posX = 0, posY = 0;
+	int acceleration = 100;
+	double speedX = 0, speedY = 0;
+	int sizeH = 32, sizeW = 32;
+	friend class Game;
+};
+
+
+class Game: public Player
 {
 public:
 	Game();
@@ -27,18 +41,6 @@ private:
 	int windowSizeX, windowSizeY;
 	unsigned int currentTime, lastTime = 0;
 
-	double posX = 0, posY = 0; //player (probowalem zrobic friend class ale to nie banglalo)
-	int acceleration = 100;
-	double speedX = 0, speedY = 0;
-	int sizeH = 32, sizeW = 32;
 };
 
-class Player
-{
-public:
 
-private: 
-	int posX = 0, posY = 0;
-	int acceleration = 10;
-	int speedX = 0, speedY = 0;
-};
