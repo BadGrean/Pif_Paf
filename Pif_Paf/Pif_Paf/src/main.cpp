@@ -4,7 +4,6 @@
 #include "Game.h"
 
 Game* game = nullptr;
-Player* player = nullptr;
 
 int main(int argc, char *argv[])
 {

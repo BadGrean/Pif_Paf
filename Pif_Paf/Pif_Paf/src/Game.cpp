@@ -86,9 +86,9 @@ void Game::handleEvents()
 		break;
 
 	case SDL_MOUSEBUTTONDOWN: //sets Player position to mouseclick cords
-		posX = event.button.x;
-		posY = event.button.y;
-		speedX = 0;
+		Player::posX = event.button.x;
+		Player::posY = event.button.y;
+		Player::speedX = 0;
 		speedY = 0;
 		break;
 
@@ -109,16 +109,16 @@ void Game::handleEvents()
 			break;
 
 		case SDL_SCANCODE_UP:
-			speedY -= 200;
+			Player::speedY -= 200;
 			break;
 		case SDL_SCANCODE_DOWN:
-			speedY += 200;
+			Player::speedY += 200;
 			break;
 		case SDL_SCANCODE_LEFT:
-			speedX -= 200;
+			Player::speedX -= 200;
 			break;
 		case SDL_SCANCODE_RIGHT:
-			speedX += 200;
+			Player::speedX += 200;
 			break;
 		default:
 			break;
@@ -134,13 +134,13 @@ void Game::handleEvents()
 void Game::update()
 {
 	//posX++;
-	speedX = speedX + acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
-	posX = posX + speedX * (time() - lastFrameTime()) / 1000;
-	dstPlayerRect.x = int(posX);
+	Player::speedX = Player::speedX + Player::acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
+	Player::posX = Player::posX + Player::speedX * (time() - lastFrameTime()) / 1000;
+	dstPlayerRect.x = int(Player::posX);
 
-	speedY = speedY + acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
-	posY = posY + speedY * (time() - lastFrameTime()) / 1000;
-	dstPlayerRect.y = int(posY);
+	Player::speedY = Player::speedY + Player::acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
+	Player::posY = Player::posY + Player::speedY * (time() - lastFrameTime()) / 1000;
+	dstPlayerRect.y = int(Player::posY);
 
 }
 
