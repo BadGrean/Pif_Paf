@@ -2,21 +2,13 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <iostream>
-
-class Player
-{
-public:
-
-private:
-	double posX = 0, posY = 0;
-	int acceleration = 100;
-	double speedX = 0, speedY = 0;
-	int sizeH = 32, sizeW = 32;
-	friend class Game;
-};
+#include "Player.h"
+#include "GameInfo.h"
 
 
-class Game: public Player
+
+
+class Game: public Player, public virtual GameInfo
 {
 public:
 	Game();
@@ -34,11 +26,8 @@ public:
 	unsigned int lastFrameTime() { return lastTime; } //da sie uproscic, ale nie myslalem o tym
 	void setLastFrameTime() { lastTime = time(); }
 private:
-	bool isRunning, isPaused = false;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	int windowSizeX, windowSizeY;
-	unsigned int currentTime, lastTime = 0;
 };
 
 

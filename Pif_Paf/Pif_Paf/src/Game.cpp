@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <iostream>
 
 SDL_Texture* playerTexture, *targetTexture, *pauseTexture;
 SDL_Rect srcPlayerRect, dstPlayerRect, dstTargetRect;
@@ -18,6 +17,12 @@ Game::~Game()
 
 void Game::dataInit()
 {
+
+	std::cout << Player::sizeH;
+
+	scaleToWindowSize();
+
+	std::cout << Player::sizeH;
 
 	dstPlayerRect.x = 0;
 	dstPlayerRect.y = 0;
@@ -112,16 +117,16 @@ void Game::handleEvents()
 			break;
 
 		case SDL_SCANCODE_UP:
-			Player::speedY -= 200;
+			Player::speedY -= Player::speedIncrement;
 			break;
 		case SDL_SCANCODE_DOWN:
-			Player::speedY += 200;
+			Player::speedY += Player::speedIncrement;
 			break;
 		case SDL_SCANCODE_LEFT:
-			Player::speedX -= 200;
+			Player::speedX -= Player::speedIncrement;
 			break;
 		case SDL_SCANCODE_RIGHT:
-			Player::speedX += 200;
+			Player::speedX += Player::speedIncrement;
 			break;
 		default:
 			break;
@@ -136,6 +141,7 @@ void Game::handleEvents()
 
 void Game::update()
 {
+
 	Player::speedX = Player::speedX;
 	Player::speedY = Player::speedY + Player::acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
 
@@ -146,29 +152,6 @@ void Game::update()
 	//walls loop back
 	dstPlayerRect.x = (int(Player::posX) % windowSizeX + windowSizeX) % windowSizeX;
 	dstPlayerRect.y = (int(Player::posY) % windowSizeY + windowSizeY) % windowSizeY; //aby modulo z ujemnych dzialalo poprawnie
-
-
-	//walls bounce   (a bit buggy)
-	if (Player::posX >= windowSizeX)
-	{
-		dstPlayerRect.x = windowSizeX - int(Player::posX) % windowSizeX;
-		Player::speedX *= -1;
-	}
-	if (Player::posX < 0)
-	{
-		dstPlayerRect.x = -(int(Player::posX) % windowSizeX);
-		Player::speedX *= -1;
-	}
-	if (Player::posY >= windowSizeY)
-	{
-		dstPlayerRect.y = windowSizeY - int(Player::posY) % windowSizeY;
-		Player::speedY *= -1;
-	}
-	if (Player::posY < 0)
-	{
-		dstPlayerRect.y = -(int(Player::posY) % windowSizeY);
-		Player::speedY *= -1;
-	}
 	
 }
 

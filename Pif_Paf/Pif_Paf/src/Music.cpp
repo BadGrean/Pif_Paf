@@ -18,7 +18,6 @@ void my_audio_callback(void* userdata, Uint8* stream, int len) {
 	audio_len -= len;
 }
 
-
 void playMusic(const char* musicPath)
 {
 	static Uint32 wav_length; // length of our sample
