@@ -10,19 +10,21 @@ int main(int argc, char *argv[])
 {
 	
 	game = new Game();
-	game->init("Pif Paf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+	game->init("Pif Paf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920/2, 1080/2, true);
 	game->dataInit();
 	playMusic("assets/Music.wav");
 	while (game->running())
 	{
 		game->handleEvents();
 		game->time();
-		if (game->time() > game->lastFrameTime() + 10) //100fps cap
+		
+		if (game->time() > game->lastFrameTime() + 10) //100tick cap + 100fps cap
 		{
 			game->update();
 			game->setLastFrameTime();
+			game->render();
 		}
-		game->render();
+
 	}
 	stopMusic();
 	game->clean();

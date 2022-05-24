@@ -5,11 +5,13 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Music.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Game.h" />
     <ClInclude Include="headers\Music.h" />
     <ClInclude Include="headers\Player.h" />
     <ClInclude Include="headers\GameInfo.h" />
+    <ClInclude Include="headers\Bullet.h" />
   </ItemGroup>
 </Project>

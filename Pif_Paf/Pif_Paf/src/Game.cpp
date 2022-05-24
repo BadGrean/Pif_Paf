@@ -141,14 +141,7 @@ void Game::handleEvents()
 
 void Game::update()
 {
-
-	Player::speedX = Player::speedX;
-	Player::speedY = Player::speedY + Player::acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
-
-	Player::posX = Player::posX + Player::speedX * (time() - lastFrameTime()) / 1000;
-	Player::posY = Player::posY + Player::speedY * (time() - lastFrameTime()) / 1000;
-
-	
+	Player::update();
 	//walls loop back
 	dstPlayerRect.x = (int(Player::posX) % windowSizeX + windowSizeX) % windowSizeX;
 	dstPlayerRect.y = (int(Player::posY) % windowSizeY + windowSizeY) % windowSizeY; //aby modulo z ujemnych dzialalo poprawnie
@@ -159,7 +152,7 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, playerTexture, NULL, &dstPlayerRect);
+	Player::render(renderer, playerTexture, NULL, &dstPlayerRect);
 	SDL_RenderCopy(renderer, targetTexture, NULL, &dstTargetRect);
 	SDL_RenderPresent(renderer);
 }

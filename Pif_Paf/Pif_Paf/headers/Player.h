@@ -1,13 +1,12 @@
 #pragma once
-#include "SDL.h"
-#include "SDL_image.h"
-#include <iostream>
 #include "GameInfo.h"
 
 class Player : public virtual GameInfo
 {
 public:
 	void scaleToWindowSize();
+	void update();
+	void render(SDL_Renderer* renderer, SDL_Texture* playerTexture, const SDL_Rect* src, const SDL_Rect* dst);
 private:
 	double posX = 0, posY = 0;
 	double speedX = 0, speedY = 0;
