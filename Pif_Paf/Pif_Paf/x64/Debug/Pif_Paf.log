@@ -1,2 +1,6 @@
-﻿  main.cpp
+﻿  Music.cpp
+D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Music.cpp(13,13): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
+  Player.cpp
+  Generowanie kodu...
+  LINK : nie znaleziono elementu D:\Git_Projekt\Pif_Paf\x64\Debug\Pif_Paf.exe ani nie został on skompilowany podczas ostatniego konsolidowania przyrostowego; zostanie wykonana pełna konsolidacja
   Pif_Paf.vcxproj -> D:\Git_Projekt\Pif_Paf\x64\Debug\Pif_Paf.exe
