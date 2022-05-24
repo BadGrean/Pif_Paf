@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
 	
 	game = new Game();
-	game->init("Pif Paf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, true);
+	game->init("Pif Paf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
 	game->dataInit();
 	playMusic("assets/Music.wav");
 	while (game->running())
