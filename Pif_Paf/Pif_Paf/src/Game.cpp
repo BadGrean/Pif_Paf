@@ -18,11 +18,7 @@ Game::~Game()
 void Game::dataInit()
 {
 
-	std::cout << Player::sizeH;
-
 	scaleToWindowSize();
-
-	std::cout << Player::sizeH;
 
 	dstPlayerRect.x = 0;
 	dstPlayerRect.y = 0;
