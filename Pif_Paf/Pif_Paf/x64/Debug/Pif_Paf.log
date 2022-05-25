@@ -1,4 +1,4 @@
 ﻿  Game.cpp
-D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Game.cpp(25,28): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
-D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Game.cpp(26,28): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
-  Pif_Paf.vcxproj -> D:\Git_Projekt\Pif_Paf\x64\Debug\Pif_Paf.exe
+D:\C++\Paradygmaty prog.obiekt\Pif_Paf\Pif_Paf\Pif_Paf\src\Game.cpp(27,28): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
+D:\C++\Paradygmaty prog.obiekt\Pif_Paf\Pif_Paf\Pif_Paf\src\Game.cpp(28,28): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
+  Pif_Paf.vcxproj -> D:\C++\Paradygmaty prog.obiekt\Pif_Paf\Pif_Paf\x64\Debug\Pif_Paf.exe

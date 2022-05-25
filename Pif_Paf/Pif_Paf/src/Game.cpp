@@ -1,7 +1,9 @@
 #include "Game.h"
-
+#include "TextureManager.h"
+#include "GameObject.h"
 SDL_Texture* playerTexture, * targetTexture, * pauseTexture, * bulletTexture;
 SDL_Rect srcPlayerRect, dstPlayerRect, dstTargetRect, dstBulletRect;
+GameObject* player;
 
 
 Game::Game()
@@ -74,19 +76,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 	Bullet::textureInit(renderer, targetTexture); //dont load texture  what a pity
 
-	SDL_Surface* tmpSurface;
-	tmpSurface = IMG_Load("assets/Player.png");
-	playerTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
-	tmpSurface = IMG_Load("assets/Target.svg.png");
-	targetTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
-	tmpSurface = IMG_Load("assets/pause-icon.png");
-	pauseTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
-	tmpSurface = IMG_Load("assets/bullet.png");
-	bulletTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
+	playerTexture = TextureManager::LoadTexture("assets/Player.png", renderer);
+	targetTexture = TextureManager::LoadTexture("assets/Target.svg.png", renderer);
+	pauseTexture = TextureManager::LoadTexture("assets/pause-icon.png", renderer);
+	bulletTexture = TextureManager::LoadTexture("assets/bullet.png", renderer);
+	player = new GameObject("assets/Player.png", renderer, 0, 0);
 
 	playMusic("assets/Music.wav");
 }
@@ -162,7 +156,7 @@ void Game::update()
 	Player::update(&dstPlayerRect);
 	Bullet::update(&dstBulletRect);
 	//walls loop back
-	
+	player->Update();
 	//aby modulo z ujemnych dzialalo poprawnie
 	
 }
@@ -173,6 +167,7 @@ void Game::render()
 	Player::render(renderer, playerTexture, NULL, &dstPlayerRect);
 	Bullet::render(renderer, bulletTexture, NULL, &dstBulletRect);
 	//SDL_RenderCopy(renderer, targetTexture, NULL, &dstTargetRect);
+	player->Render();
 	SDL_RenderPresent(renderer);
 }
 
