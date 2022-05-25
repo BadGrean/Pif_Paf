@@ -1,16 +1,19 @@
 #pragma once
-#include "Player.h"
+#include "Music.h"
 #include "GameInfo.h"
+#include "Player.h"
+#include "Bullet.h"
 
 
 
 
-class Game: public Player, public virtual GameInfo
+class Game: public Player, public Bullet, public virtual GameInfo
 {
 public:
 	Game();
 	~Game();
 
+	void scaleToWindowSize();
 	void dataInit();
 	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 	void handleEvents();
@@ -25,4 +28,4 @@ private:
 };
 
 
-
+	

@@ -1,39 +1,26 @@
 #include "Player.h"
 
+
 void Player::scaleToWindowSize()
 {
 	sizeH = sizeH * GameInfo::windowSizeY / 1080;
 	sizeW = sizeW * GameInfo::windowSizeY / 1080;
 }
 
-void Player::update()
+void Player::update(SDL_Rect* dst)
 {
-	Player::speedX = Player::speedX;
-	Player::speedY = Player::speedY + Player::acceleration * (time() - lastFrameTime()) / 1000; //grawitacja
+	speedX = speedX;
+	speedY = speedY + acceleration * deltaTime() / 1000; //grawitacja
 
-	Player::posX = Player::posX + Player::speedX * (time() - lastFrameTime()) / 1000 * GameInfo::windowSizeY / 1080;
-	Player::posY = Player::posY + Player::speedY * (time() - lastFrameTime()) / 1000 * GameInfo::windowSizeY / 1080;
+	posX = posX + speedX * deltaTime() / 1000 * GameInfo::windowSizeY / 1080;
+	posY = posY + speedY * deltaTime() / 1000 * GameInfo::windowSizeY / 1080;
+
+	dst->x = (int(posX) % windowSizeX + windowSizeX) % windowSizeX;
+	dst->y = (int(posY) % windowSizeY + windowSizeY) % windowSizeY;
 }
 
-void Player::render(SDL_Renderer* renderer,SDL_Texture* playerTexture,const SDL_Rect* src, const SDL_Rect* dst)
+void Player::render(SDL_Renderer* renderer,SDL_Texture* texture,const SDL_Rect* src, const SDL_Rect* dst)
 {
-	SDL_RenderCopy(renderer, playerTexture, NULL, dst);
-	if (GameInfo::windowSizeX - dst->x < sizeW)
-	{
-		SDL_Rect  temp = *(SDL_Rect*)dst;
-		temp.x = dst->x - GameInfo::windowSizeX;
-		SDL_RenderCopy(renderer, playerTexture, NULL, &temp);
-	}
-	if (GameInfo::windowSizeY - dst->y < sizeH)
-	{
-		SDL_Rect  temp = *(SDL_Rect*)dst;
-		temp.y = dst->y - GameInfo::windowSizeY;
-		SDL_RenderCopy(renderer, playerTexture, NULL, &temp);
-
-		if (GameInfo::windowSizeX - dst->x < sizeW)
-		{
-			temp.x = dst->x - GameInfo::windowSizeX;
-			SDL_RenderCopy(renderer, playerTexture, NULL, &temp);
-		}
-	}
+	SDL_RenderCopy(renderer, texture, NULL, dst);
+	textureEdgeBending(renderer, texture, NULL, dst, sizeW, sizeH);
 }
