@@ -1,10 +1,17 @@
 #include "Game.h"
 #include "TextureManager.h"
-#include "GameObject.h"
+#include "ECS/Components.h"
+#include "Vector2D.h"
 SDL_Texture* playerTexture, * targetTexture, * pauseTexture, * bulletTexture;
 SDL_Rect srcPlayerRect, dstPlayerRect, dstTargetRect, dstBulletRect;
-GameObject* player;
 
+
+SDL_Renderer* Game::renderer = nullptr;
+SDL_Event Game::event;
+
+Manager manager;
+auto& player(manager.addEntity());
+auto& bullet(manager.addEntity());
 
 Game::Game()
 {
@@ -74,20 +81,29 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
-	Bullet::textureInit(renderer, targetTexture); //dont load texture  what a pity
+	//Bullet::textureInit(renderer, targetTexture); //dont load texture  what a pity
 
-	playerTexture = TextureManager::LoadTexture("assets/Player.png", renderer);
+	/*playerTexture = TextureManager::LoadTexture("assets/Player.png", renderer);
 	targetTexture = TextureManager::LoadTexture("assets/Target.svg.png", renderer);
 	pauseTexture = TextureManager::LoadTexture("assets/pause-icon.png", renderer);
-	bulletTexture = TextureManager::LoadTexture("assets/bullet.png", renderer);
-	player = new GameObject("assets/Player.png", renderer, 0, 0);
+	bulletTexture = TextureManager::LoadTexture("assets/bullet.png", renderer);*/
+
+	//ECS implementation dont't kill me for what have i done 
+	
+	
+	player.addComponent<TransformComponent>(100,500);
+	player.addComponent<SpriteComponent>("assets/Player.png");
+	player.addComponent<MouseController>();
+	bullet.addComponent<TransformComponent>(0, 0);
+	bullet.addComponent<SpriteComponent>("assets/bullet.png");
+	
+	
 
 	playMusic("assets/Music.wav");
 }
 
 void Game::handleEvents()
 {
-	SDL_Event event;
 	SDL_PollEvent(&event);
 	switch (event.type)
 	{
@@ -101,13 +117,13 @@ void Game::handleEvents()
 		//Player::posX = event.button.x;
 		//Player::posY = event.button.y;
 		//Player::speedX = 0;
-			Bullet::posX = dstBulletRect.x = dstPlayerRect.x + Player::sizeW / 2 - Bullet::sizeW / 2;
-			Bullet::posY = dstBulletRect.y = dstPlayerRect.y + Player::sizeH / 2 - Bullet::sizeH / 2;
+			//Bullet::posX = dstBulletRect.x = dstPlayerRect.x + Player::sizeW / 2 - Bullet::sizeW / 2;
+			//Bullet::posY = dstBulletRect.y = dstPlayerRect.y + Player::sizeH / 2 - Bullet::sizeH / 2;
 
 
 
-			Bullet::speedX = Bullet::speedIncrement * (event.button.x - (dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y));
-			Bullet::speedY = Bullet::speedIncrement * (event.button.y - (dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y));
+			//Bullet::speedX = Bullet::speedIncrement * (event.button.x - (dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y));
+			//Bullet::speedY = Bullet::speedIncrement * (event.button.y - (dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y));
 			//td::cout << int(Bullet::speedIncrement * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y))) <<"\nBullet speed: ";
 			Player::speedY = 0;
 		}
@@ -116,7 +132,7 @@ void Game::handleEvents()
 	case SDL_KEYDOWN:
 		switch (event.key.keysym.scancode)
 		{
-		case SDL_SCANCODE_ESCAPE:  
+		case SDL_SCANCODE_ESCAPE:
 			isPaused = !isPaused;  //for later use menu 
 			if (paused())
 			{
@@ -125,27 +141,10 @@ void Game::handleEvents()
 				SDL_Delay(3000);//instead of menu
 				setLastFrameTime();
 			}
-			dstTargetRect.x = rand() % windowSizeX + 1; 
+			dstTargetRect.x = rand() % windowSizeX + 1;
 			dstTargetRect.y = rand() % windowSizeY + 1;
 			break;
-
-		case SDL_SCANCODE_UP:
-			Player::speedY -= Player::speedIncrement;
-			break;
-		case SDL_SCANCODE_DOWN:
-			Player::speedY += Player::speedIncrement;
-			break;
-		case SDL_SCANCODE_LEFT:
-			Player::speedX -= Player::speedIncrement;
-			break;
-		case SDL_SCANCODE_RIGHT:
-			Player::speedX += Player::speedIncrement;
-			break;
-		default:
-			break;
 		}
-		break;
-
 	default:
 		break;
 	}
@@ -153,10 +152,12 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	Player::update(&dstPlayerRect);
-	Bullet::update(&dstBulletRect);
+	//Player::update(&dstPlayerRect);
+	//Bullet::update(&dstBulletRect);
 	//walls loop back
-	player->Update();
+	//player->update();
+	manager.refresh();
+	manager.update();
 	//aby modulo z ujemnych dzialalo poprawnie
 	
 }
@@ -164,10 +165,10 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	Player::render(renderer, playerTexture, NULL, &dstPlayerRect);
-	Bullet::render(renderer, bulletTexture, NULL, &dstBulletRect);
+	//Player::render(renderer, playerTexture, NULL, &dstPlayerRect);
+	//Bullet::render(renderer, bulletTexture, NULL, &dstBulletRect);
 	//SDL_RenderCopy(renderer, targetTexture, NULL, &dstTargetRect);
-	player->Render();
+	manager.draw();
 	SDL_RenderPresent(renderer);
 }
 

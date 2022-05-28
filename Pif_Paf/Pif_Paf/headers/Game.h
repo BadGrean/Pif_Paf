@@ -22,9 +22,12 @@ public:
 	void clean();
 	bool running() { return isRunning; }
 	bool paused() { return isPaused; }
+
+	static SDL_Renderer* renderer;
+	static SDL_Event event;
 private:
 	SDL_Window* window;
-	SDL_Renderer* renderer;
+	
 };
 
 

@@ -74,25 +74,25 @@
     <LinkIncremental>true</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)\Pif_Paf\lib\SDL2\include;$(SolutionDir)\Pif_Paf\lib\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)\Pif_Paf\lib\SDL2_image\lib\x64;$(SolutionDir)\Pif_Paf\lib\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Pif_Paf\headers\ECS;$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)\Pif_Paf\lib\SDL2\include;$(SolutionDir)\Pif_Paf\lib\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)\Pif_Paf\lib\SDL2_image\lib\x64;$(SolutionDir)\Pif_Paf\lib\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Pif_Paf\headers\ECS;$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)\Pif_Paf\lib\SDL2\include;$(SolutionDir)\Pif_Paf\lib\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)\Pif_Paf\lib\SDL2_image\lib\x64;$(SolutionDir)\Pif_Paf\lib\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Pif_Paf\headers\ECS;$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(SolutionDir)\Pif_Paf\lib\SDL2\include;$(SolutionDir)\Pif_Paf\lib\SDL2_image\include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)\Pif_Paf\lib\SDL2_image\lib\x64;$(SolutionDir)\Pif_Paf\lib\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Pif_Paf\headers\ECS;$(SolutionDir)\Pif_Paf\headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -170,8 +170,14 @@
     <ClCompile Include="src\Music.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
+    <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\ECS\Components.h" />
+    <ClInclude Include="headers\ECS\ECS.h" />
+    <ClInclude Include="headers\ECS\MouseController.h" />
+    <ClInclude Include="headers\ECS\TransformComponent.h" />
+    <ClInclude Include="headers\ECS\SpriteComponent.h" />
     <ClInclude Include="headers\GameObject.h" />
     <ClInclude Include="headers\Bullet.h" />
     <ClInclude Include="headers\Game.h" />
@@ -179,6 +185,7 @@
     <ClInclude Include="headers\Music.h" />
     <ClInclude Include="headers\Player.h" />
     <ClInclude Include="headers\TextureManager.h" />
+    <ClInclude Include="headers\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
