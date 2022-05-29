@@ -125,7 +125,7 @@ void Game::handleEvents()
 			//Bullet::speedX = Bullet::speedIncrement * (event.button.x - (dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y));
 			//Bullet::speedY = Bullet::speedIncrement * (event.button.y - (dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y));
 			//td::cout << int(Bullet::speedIncrement * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y))) <<"\nBullet speed: ";
-			Player::speedY = 0;
+			//Player::speedY = 0;
 		}
 		break;
 

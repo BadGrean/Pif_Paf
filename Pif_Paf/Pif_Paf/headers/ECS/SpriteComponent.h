@@ -29,11 +29,11 @@ public:
 
 		srcRect.x = srcRect.y = 0;
 		srcRect.w = srcRect.h = 32;//pixel value (temp)
-		destRect.w = destRect.h = 64;//scaling here 32 * 2
+		destRect.w = destRect.h = 32;//scaling here 32 * 2
 	}
 	void update() override
 	{
-		destRect.x = (int)transform->position.x;
+		destRect.x = (int)transform->position.x; //wee need WindowSize here    SDL_GetWindowSize works on pointers and does not return value 
 		destRect.y = (int)transform->position.y;
 	}
 	void draw() override
