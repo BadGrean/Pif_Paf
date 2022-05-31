@@ -54,8 +54,6 @@ void Game::dataInit()
 
 	dstBulletRect.x = 1000;
 	dstBulletRect.y = 100;
-	//dstBulletRect.h = Bullet::sizeH = GameInfo::standardSize / 2;
-	//dstBulletRect.w = Bullet::sizeW = GameInfo::standardSize / 2;
 
 	scaleToWindowSize();
 }
@@ -110,11 +108,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player.addComponent<MouseController>();
 	player.addGroup(groupPlayers);
 
-	assets->CreateBullet(Vector2D(500, 500),Vector2D(2,0), 200, 2, "bullet");
+	assets->CreateBullet(Vector2D(500, 500),Vector2D(2,0), 200, 2, "bullet"); //you cant just make vector (2,0)   for vec(x,y)  x^2+y^2=1  always
+	assets->CreateBullet(Vector2D(500, 600), Vector2D(0.1, -0.1), 200, 2, "bullet");
 	
 	
 
-	playMusic("assets/Music.wav");
+	//playMusic("assets/Music.wav");
 }
 
 void Game::handleEvents()
@@ -129,18 +128,7 @@ void Game::handleEvents()
 	case SDL_MOUSEBUTTONDOWN: 
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
-		//Player::posX = event.button.x;
-		//Player::posY = event.button.y;
-		//Player::speedX = 0;
-			//Bullet::posX = dstBulletRect.x = dstPlayerRect.x + Player::sizeW / 2 - Bullet::sizeW / 2;
-			//Bullet::posY = dstBulletRect.y = dstPlayerRect.y + Player::sizeH / 2 - Bullet::sizeH / 2;
-
-
-
-			//Bullet::speedX = Bullet::speedIncrement * (event.button.x - (dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y));
-			//Bullet::speedY = Bullet::speedIncrement * (event.button.y - (dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y));
-			//td::cout << int(Bullet::speedIncrement * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) / sqrt(((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) * ((dstBulletRect.x + Bullet::sizeW / 2) % windowSizeX - event.button.x) + ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y) * ((dstBulletRect.y + Bullet::sizeH / 2) % windowSizeY - event.button.y))) <<"\nBullet speed: ";
-			//Player::speedY = 0;
+			assets->CreateBullet(Vector2D(2, 3), Vector2D(1,2), 1000, 2, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
 		}
 		break;
 

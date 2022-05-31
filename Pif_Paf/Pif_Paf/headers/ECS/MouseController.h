@@ -23,10 +23,11 @@ public:
 			if (Game::event.button.button == SDL_BUTTON_LEFT)
 			{
 				transform->velocity.y = 0;
-				//transform->velocity.y = -(Game::event.button.y - transform->position.y) / sqrt(Game::event.button.y * Game::event.button.y + transform->position.y * transform->position.y);//change for normalized vector cuz math is hard
-				//transform->velocity.x = -(Game::event.button.x - transform->position.x) / sqrt(Game::event.button.x * Game::event.button.x + transform->position.x * transform->position.x);//same here
-				transform->velocity.y = -(Game::event.button.y - transform->position.y) / sqrt((Game::event.button.y - transform->position.y) * (Game::event.button.y - transform->position.y) + (Game::event.button.x - transform->position.x) * (Game::event.button.x - transform->position.x));
-				transform->velocity.x = -(Game::event.button.x - transform->position.x) / sqrt((Game::event.button.y - transform->position.y) * (Game::event.button.y - transform->position.y) + (Game::event.button.x - transform->position.x) * (Game::event.button.x - transform->position.x));
+				int x = ( int(transform->position.x) % 1920 + 1920) % 1920;
+				int y = ( int(transform->position.y) % 1080 + 1080) % 1080;
+				transform->velocity.y = -(Game::event.button.y - y) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
+				transform->velocity.x = -(Game::event.button.x - x) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
+				//assets->CreateBullet(Vector2D(500, 600), Vector2D(0.1, -0.1), 200, 2, "bullet"); //cant get to assets
 			}
 
 			break;

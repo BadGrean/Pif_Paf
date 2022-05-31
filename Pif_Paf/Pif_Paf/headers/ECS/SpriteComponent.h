@@ -34,7 +34,7 @@ public:
 	}
 	void update() override
 	{
-		destRect.x = (int)transform->position.x; //wee need WindowSize here    SDL_GetWindowSize works on pointers and does not return value 
+		destRect.x = (int)transform->position.x;
 		destRect.y = (int)transform->position.y;
 	}
 	void draw() override
