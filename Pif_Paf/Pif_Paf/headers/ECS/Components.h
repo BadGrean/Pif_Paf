@@ -3,3 +3,4 @@
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
 #include "MouseController.h"
+#include "BulletComponent.h"

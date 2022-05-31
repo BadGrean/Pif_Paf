@@ -9,13 +9,15 @@
     <ClCompile Include="src\TextureManager.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Vector2D.cpp" />
+    <ClCompile Include="headers\ECS\ECS.cpp" />
+    <ClCompile Include="src\AssetManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\Game.h" />
     <ClInclude Include="headers\Music.h" />
     <ClInclude Include="headers\Player.h" />
     <ClInclude Include="headers\GameInfo.h" />
-    <ClInclude Include="headers\Bullet.h" />
+    <ClInclude Include="headers\Bullett.h" />
     <ClInclude Include="headers\TextureManager.h" />
     <ClInclude Include="headers\GameObject.h" />
     <ClInclude Include="headers\ECS\ECS.h" />
@@ -24,5 +26,7 @@
     <ClInclude Include="headers\ECS\TransformComponent.h" />
     <ClInclude Include="headers\Vector2D.h" />
     <ClInclude Include="headers\ECS\MouseController.h" />
+    <ClInclude Include="headers\AssetManager.h" />
+    <ClInclude Include="headers\ECS\BulletComponent.h" />
   </ItemGroup>
 </Project>

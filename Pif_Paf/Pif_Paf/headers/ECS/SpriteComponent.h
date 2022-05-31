@@ -1,6 +1,7 @@
 #pragma once
 #include "Components.h"
 #include "SDL.h"
+#include "../AssetManager.h"
 
 class SpriteComponent : public Component
 {
@@ -12,14 +13,14 @@ private:
 public:
 
 	SpriteComponent() = default;
-	SpriteComponent(const char* path)
+	SpriteComponent(std::string id)
 	{
-		setTex(path);
+		setTex(id);
 	}
 
-	void setTex(const char* path)
+	void setTex(std::string id)
 	{
-		texture = TextureManager::LoadTexture(path);
+		texture = Game::assets->GetTexture(id);
 	}
 
 	void init() override

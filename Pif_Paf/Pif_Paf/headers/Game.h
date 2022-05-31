@@ -2,12 +2,13 @@
 #include "Music.h"
 #include "GameInfo.h"
 #include "Player.h"
-#include "Bullet.h"
+
+
+class AssetManager;
 
 
 
-
-class Game: public Player, public Bullet, public virtual GameInfo
+class Game: public Player, public virtual GameInfo
 {
 public:
 	Game();
@@ -25,6 +26,14 @@ public:
 
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
+	static AssetManager *assets;
+	enum groupLabels : std::size_t
+	{
+		groupPlayers,
+		groupTargets,
+		groupAmmo,
+		groupBullets,
+	};
 private:
 	SDL_Window* window;
 	

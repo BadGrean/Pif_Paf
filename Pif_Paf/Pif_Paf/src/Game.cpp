@@ -2,16 +2,28 @@
 #include "TextureManager.h"
 #include "ECS/Components.h"
 #include "Vector2D.h"
+#include "AssetManager.h"
 SDL_Texture* playerTexture, * targetTexture, * pauseTexture, * bulletTexture;
 SDL_Rect srcPlayerRect, dstPlayerRect, dstTargetRect, dstBulletRect;
 
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
-
 Manager manager;
+
+AssetManager* Game::assets = new AssetManager(&manager);
+
+
 auto& player(manager.addEntity());
 auto& bullet(manager.addEntity());
+
+enum groupLables : std::size_t
+{
+	groupPlayers,
+	groupTargets,
+	groupAmmo,
+	groupBullets,
+};
 
 Game::Game()
 {
@@ -26,7 +38,6 @@ Game::~Game()
 void Game::scaleToWindowSize()
 {
 	Player::scaleToWindowSize();
-	Bullet::scaleToWindowSize();
 }
 
 void Game::dataInit()
@@ -43,8 +54,8 @@ void Game::dataInit()
 
 	dstBulletRect.x = 1000;
 	dstBulletRect.y = 100;
-	dstBulletRect.h = Bullet::sizeH = GameInfo::standardSize / 2;
-	dstBulletRect.w = Bullet::sizeW = GameInfo::standardSize / 2;
+	//dstBulletRect.h = Bullet::sizeH = GameInfo::standardSize / 2;
+	//dstBulletRect.w = Bullet::sizeW = GameInfo::standardSize / 2;
 
 	scaleToWindowSize();
 }
@@ -81,6 +92,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
+
+	assets->AddTexture("player", "assets/Player.png");
+	assets->AddTexture("bullet", "assets/bullet.png");
 	//Bullet::textureInit(renderer, targetTexture); //dont load texture  what a pity
 
 	/*playerTexture = TextureManager::LoadTexture("assets/Player.png", renderer);
@@ -92,10 +106,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	
 	
 	player.addComponent<TransformComponent>(100,500);
-	player.addComponent<SpriteComponent>("assets/Player.png");
+	player.addComponent<SpriteComponent>("player");
 	player.addComponent<MouseController>();
-	bullet.addComponent<TransformComponent>(0, 0);
-	bullet.addComponent<SpriteComponent>("assets/bullet.png");
+	player.addGroup(groupPlayers);
+
+	assets->CreateBullet(Vector2D(500, 500),Vector2D(2,0), 200, 2, "bullet");
 	
 	
 
@@ -162,13 +177,23 @@ void Game::update()
 	
 }
 
+auto& players(manager.getGroup(groupPlayers));
+auto& bullets(manager.getGroup(groupBullets));
+
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 	//Player::render(renderer, playerTexture, NULL, &dstPlayerRect);
 	//Bullet::render(renderer, bulletTexture, NULL, &dstBulletRect);
 	//SDL_RenderCopy(renderer, targetTexture, NULL, &dstTargetRect);
-	manager.draw();
+	for (auto& p : players)
+	{
+		p->draw();
+	}
+	for (auto& b : bullets)
+	{
+		b->draw();
+	}
 	SDL_RenderPresent(renderer);
 }
 

@@ -1,4 +1,4 @@
-#include "Bullet.h"
+#include "Bullett.h"
 
 void Bullet::scaleToWindowSize()
 {
