@@ -70,7 +70,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
 		std::cout << "Subsystems initialised\n";
-
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		if (window)
 		{
@@ -151,6 +150,9 @@ void Game::handleEvents()
 				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 150, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
 				//player.getComponent<MouseController>().ammunition--; // it was substracted twice, this one is unnecesary and broke mouse controler if statement
 				framesSinceLastShot = 0;
+				system("CLS");
+				std::cout << "Score: " << destroyedtargets << "\n";
+				std::cout << "Ammo: " << player.getComponent<MouseController>().ammunition - 1 << "\n";
 			}
 		}
 		else if (event.button.button == SDL_BUTTON_RIGHT)
@@ -218,8 +220,6 @@ void Game::update()
 						assets->CreateAmmo(Vector2D((std::rand() % (1920 - 64)), (std::rand() % (1920 - 64))), "ammo");
 
 					}
-					std::cout << "Score: " << destroyedtargets << "\n";
-
 				}
 			}
 		}
@@ -238,8 +238,6 @@ void Game::update()
 					player.getComponent<MouseController>().ammunition += 3;
 					enable_ammmo = false;
 
-
-					std::cout << "Ammo: " << player.getComponent<MouseController>().ammunition << "\n";
 				}
 			}
 		}
@@ -255,14 +253,14 @@ void Game::update()
 		manager.update();
 		//aby modulo z ujemnych dzialalo poprawnie
 	}
-	else
+	else if(framesSinceLastShot >= 180)
 	{
 		SDL_Event sdlevent;
 		sdlevent.type = SDL_MOUSEBUTTONDOWN;
 		sdlevent.button.button = SDL_BUTTON_RIGHT;
 
 		SDL_PushEvent(&sdlevent);
-		//framesSinceLastShot = 0;
+		framesSinceLastShot = 0;
 	}
 
 }
