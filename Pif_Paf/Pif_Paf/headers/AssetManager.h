@@ -18,6 +18,8 @@ public:
 
 	void CreateAmmo(Vector2D pos, std::string id);
 
+	void CreateText(Vector2D pos, std::string text, std::string fontType, int fontSize, std::string id);
+
 	//textures
 	void AddTexture(std::string id, const char* path);
 	SDL_Texture* GetTexture(std::string id);

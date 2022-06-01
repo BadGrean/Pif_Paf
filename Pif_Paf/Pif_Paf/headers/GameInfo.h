@@ -15,7 +15,7 @@ public:
 		if (GameInfo::windowSizeX - dst->x < sizeW)
 		{
 			SDL_Rect  temp = *(SDL_Rect*)dst;
-			temp.x = dst->x - GameInfo::windowSizeX;
+			temp.x = dst->x - GameInfo::windowSizeX;	
 			SDL_RenderCopy(renderer, texture, NULL, &temp);
 		}
 		if (GameInfo::windowSizeY - dst->y < sizeH)
@@ -32,12 +32,13 @@ public:
 		}
 	};
 
-private:
 	bool isRunning, isPaused = false;
 	int windowSizeX, windowSizeY, standardSize;
 	unsigned int lastTime = 0;
+private:
 
 	friend class Player;
 	friend class Game;
 	friend class Bullet;
+	friend class MouseController;
 };

@@ -17,6 +17,10 @@ public:
 	{
 		setTex(id);
 	}
+	SpriteComponent(std::string msg, std::string fontType, int fontSize, std::string id)
+	{
+		setTex(id); //make text image
+	}
 
 	void setTex(std::string id)
 	{
@@ -30,7 +34,7 @@ public:
 
 		srcRect.x = srcRect.y = 0;
 		srcRect.w = srcRect.h = 32;//pixel value (temp)
-		destRect.w = destRect.h = 32;//scaling here 32 * 2
+		destRect.w = destRect.h = 64;//scaling here 32 * 2
 	}
 	void update() override
 	{

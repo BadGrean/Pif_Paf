@@ -23,6 +23,7 @@ public:
 	void clean();
 	bool running() { return isRunning; }
 	bool paused() { return isPaused; }
+	void pauseGame() { isPaused = true; };
 
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
@@ -36,6 +37,7 @@ public:
 		groupTargets,
 		groupAmmo,
 		groupBullets,
+		groupTexts,
 	};
 	template <typename destT, typename srcT>
 	destT& absolute_cast(srcT& v)

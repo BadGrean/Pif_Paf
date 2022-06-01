@@ -46,3 +46,11 @@ void AssetManager::CreateAmmo(Vector2D pos, std::string id)
 	ammo.addGroup(Game::groupAmmo);
 
 }
+
+void AssetManager::CreateText(Vector2D pos, std::string msg, std::string fontType, int fontSize, std::string id)
+{
+	auto& text(manager->addEntity());
+	text.addComponent<TransformComponent>(pos.x, pos.y);
+	text.addComponent<SpriteComponent>(msg, fontType, fontSize, id);
+	text.addGroup(Game::groupTexts);
+}

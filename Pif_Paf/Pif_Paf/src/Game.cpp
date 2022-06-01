@@ -23,6 +23,7 @@ enum groupLables : std::size_t
 	groupTargets,
 	groupAmmo,
 	groupBullets,
+	groupTexts,
 };
 
 Game::Game()
@@ -116,6 +117,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	
 	assets->CreateAmmo(Vector2D(200, 200), "ammo");
 	assets->CreateTarget(Vector2D(100, 100), "target");
+	assets->CreateText(Vector2D(1800, 20), "Hello World!", "Sans.ttf", 24, "text");
 
 	//playMusic("assets/Music.wav");
 
@@ -127,6 +129,7 @@ auto& players(manager.getGroup(groupPlayers));
 auto& bullets(manager.getGroup(groupBullets));
 auto& targets(manager.getGroup(groupTargets));
 auto& ammo(manager.getGroup(groupAmmo));
+auto& text(manager.getGroup(groupTexts));
 
 
 void Game::handleEvents()
@@ -146,8 +149,8 @@ void Game::handleEvents()
 			if (player.getComponent<MouseController>().ammunition > 0)
 			{
 				SDL_GetMouseState(&player.getComponent<MouseController>().pos.x, &player.getComponent<MouseController>().pos.y);
-				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 150, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
-				player.getComponent<MouseController>().ammunition--;
+				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 100, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
+				//player.getComponent<MouseController>().ammunition--; // it was substracted twice, this one is unnecesary and broke mouse controler if statement
 			}
 		}
 		break;	
@@ -164,8 +167,6 @@ void Game::handleEvents()
 				SDL_Delay(3000);//instead of menu
 				setLastFrameTime();
 			}
-			dstTargetRect.x = rand() % windowSizeX + 1;
-			dstTargetRect.y = rand() % windowSizeY + 1;
 			break;
 		}
 	default:
@@ -177,44 +178,37 @@ void Game::update()
 {
 
 
-	
-		for (auto& b : bullets)
+		for (auto it = 0; it < bullets.size(); ++it)
 		{
+			auto b = bullets[it];
 			//?zapisz dane z entity1
 			Vector2D bPos = b->getComponent<TransformComponent>().position;
-			Vector2D bSize(32, 32);
+			Vector2D bSize(64, 64);
 			for (auto& t : targets)
 			{
 				Vector2D tPos = t->getComponent<TransformComponent>().position;
-				Vector2D tSize(32, 32);
+				Vector2D tSize(64, 64);
 				if (bPos.x + bSize.x >= tPos.x && tPos.x + tSize.x >= bPos.x && bPos.y + bSize.y >= tPos.y && tPos.y + tSize.y >= bPos.y)
 				{
+					it++;
 					t->destroy();
 					destroyedtargets++;
 					enable_ammmo = true;
 					b->destroy();
-					//int x = (int)player.getComponent<TransformComponent>().position.x;
-					//int y = (int)player.getComponent<TransformComponent>().position.y;
+
+					assets->CreateTarget(Vector2D((std::rand() % (1920 - 64)), (std::rand() % (1080 - 64))), "target");
+
+					if (enable_ammmo && ammo.size() < 1)
+					{
+						assets->CreateAmmo(Vector2D((std::rand() % (1920 - 64)), (std::rand() % (1920 - 64))), "ammo");
+
+					}
 
 
-
-					/*
-					
-					do {
-
-							int xN = rand() % 1920;
-							int yN = rand() % 1080;
-
-						} while ((x - xN) ^ 2 + (y - yN) ^ 2 < 40000);
-					*/
-					assets->CreateTarget(Vector2D((std::rand() % 1888), (std::rand() % 1048)), "target");
-					
-					assets->CreateAmmo(Vector2D((std::rand() % 1888), (std::rand() % 1048)), "ammo");
-
-					
 
 					//assets->CreateTarget(Vector2D(xN,yN), "target");
 					//assets->CreateTarget(xN, yN);
+					std::cout << "Score: " << destroyedtargets << "\n";
 				}
 			}
 		}
@@ -222,38 +216,23 @@ void Game::update()
 		{
 			//?zapisz dane z entity1
 			Vector2D bPos = p->getComponent<TransformComponent>().position;
-			Vector2D bSize(32, 32);
+			Vector2D bSize(64, 64);
 			for (auto& a : ammo)
 			{
 				Vector2D tPos = a->getComponent<TransformComponent>().position;
-				Vector2D tSize(32, 32);
+				Vector2D tSize(64, 64);
 				if (bPos.x + bSize.x >= tPos.x && tPos.x + tSize.x >= bPos.x && bPos.y + bSize.y >= tPos.y && tPos.y + tSize.y >= bPos.y)
 				{
 					a->destroy();
 					player.getComponent<MouseController>().ammunition += 3;
-					!enable_ammmo;
-
-					//int x = (int)player.getComponent<TransformComponent>().position.x;
-					//int y = (int)player.getComponent<TransformComponent>().position.y;
+					enable_ammmo = false;
 
 
-
-					/*
-
-					do {
-
-							int xN = rand() % 1920;
-							int yN = rand() % 1080;
-
-						} while ((x - xN) ^ 2 + (y - yN) ^ 2 < 40000);
-					*/
-					
-					//assets->CreateAmmo(Vector2D((std::rand() % 1888), (std::rand() % 1048)), "ammo");
-					//assets->CreateTarget(Vector2D(xN,yN), "target");
-					//assets->CreateTarget(xN, yN);
+					std::cout << "Ammo: " << player.getComponent<MouseController>().ammunition << "\n";
 				}
 			}
 		}
+
 
 
 
@@ -264,7 +243,6 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 	//aby modulo z ujemnych dzialalo poprawnie
-	
 }
 
 

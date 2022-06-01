@@ -6,7 +6,7 @@
 #include <math.h>
 
 
-class MouseController : public Component
+class MouseController : public Component , public GameInfo
 {
 public:
 	TransformComponent* transform;
@@ -31,15 +31,19 @@ public:
 					transform->velocity.y = -(Game::event.button.y - y) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
 					transform->velocity.x = -(Game::event.button.x - x) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
 					ammunition--;
+					
+					std::cout << "Ammo: " << ammunition << "\n";
 				}
 			}
 
 
 			break;
 		default:
-			if (transform->velocity.y < 1.6)
+			transform->velocity.y += 0.015;
+			if (transform->velocity.y > 2.5)
 			{
-				transform->velocity.y += 0.015;
+				isPaused = true;
+				std::cout << "Speed: " << (int)sqrt(transform->velocity.x * transform->velocity.x + transform->velocity.y * transform->velocity.y) << "\n";
 			}
 			break;
 		}
