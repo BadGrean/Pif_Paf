@@ -143,11 +143,11 @@ void Game::handleEvents()
 		{
 			//SDL_GetMouseState(&absolute_cast<int>(player.getComponent<MouseController>().pos.x), &absolute_cast<int>(player.getComponent<MouseController>().pos.y)); //Vector2D not Vector2DInt
 			//assets->CreateBullet(player.getComponent<TransformComponent>().position, ~Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 150, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
-			if (ammunition > 0)
+			if (player.getComponent<MouseController>().ammunition > 0)
 			{
 				SDL_GetMouseState(&player.getComponent<MouseController>().pos.x, &player.getComponent<MouseController>().pos.y);
 				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 150, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
-				ammunition--;
+				player.getComponent<MouseController>().ammunition--;
 			}
 		}
 		break;	
@@ -230,7 +230,7 @@ void Game::update()
 				if (bPos.x + bSize.x >= tPos.x && tPos.x + tSize.x >= bPos.x && bPos.y + bSize.y >= tPos.y && tPos.y + tSize.y >= bPos.y)
 				{
 					a->destroy();
-					ammunition += 3;
+					player.getComponent<MouseController>().ammunition += 3;
 					!enable_ammmo;
 
 					//int x = (int)player.getComponent<TransformComponent>().position.x;
