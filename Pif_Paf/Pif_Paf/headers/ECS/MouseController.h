@@ -31,7 +31,7 @@ public:
 
 			break;
 		default:
-			if (transform->velocity.y < 5)
+			if (transform->velocity.y < 1.6)
 			{
 				transform->velocity.y += 0.015;
 			}

@@ -4,16 +4,17 @@ D:\Git_Projekt\Pif_Paf\Pif_Paf\headers\ECS\TransformComponent.h(37,48): warning 
 D:\Git_Projekt\Pif_Paf\Pif_Paf\headers\ECS\MouseController.h(28,57): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
 D:\Git_Projekt\Pif_Paf\Pif_Paf\headers\ECS\MouseController.h(29,57): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
 D:\Git_Projekt\Pif_Paf\Pif_Paf\headers\ECS\MouseController.h(36,1): warning C4305: "+=": obcięcie z "double" do "float"
-D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Game.cpp(45,28): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
 D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Game.cpp(46,28): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
+D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Game.cpp(47,28): warning C4244: "=": konwersja z "double" do "int", możliwa utrata danych
 D:\Git_Projekt\Pif_Paf\Pif_Paf\headers\ECS\ECS.h(92,33): warning C4244: "argument": konwersja z "_Ty" do "float", możliwa utrata danych
           with
           [
               _Ty=int
           ]
-D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Game.cpp(106): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „T &Entity::addComponent<TransformComponent,int,int>(int &&,int &&)” funkcji szablon
+D:\Git_Projekt\Pif_Paf\Pif_Paf\src\Game.cpp(108): message : zobacz odwołanie do kompilowanego tworzenia wystąpienia „T &Entity::addComponent<TransformComponent,int,int>(int &&,int &&)” funkcji szablon
           with
           [
               T=TransformComponent
           ]
+  LINK : nie znaleziono elementu D:\Git_Projekt\Pif_Paf\x64\Debug\Pif_Paf.exe ani nie został on skompilowany podczas ostatniego konsolidowania przyrostowego; zostanie wykonana pełna konsolidacja
   Pif_Paf.vcxproj -> D:\Git_Projekt\Pif_Paf\x64\Debug\Pif_Paf.exe

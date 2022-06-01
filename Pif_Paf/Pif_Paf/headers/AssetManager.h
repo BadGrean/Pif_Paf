@@ -11,7 +11,7 @@ class AssetManager
 public:
 	AssetManager(Manager* man);
 	~AssetManager();
-
+	void CreateTarget(Vector2D pos, std::string id);
 	//game objects
 
 	void CreateBullet(Vector2D pos, Vector2D vel, int range, int speed, std::string id);

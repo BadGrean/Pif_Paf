@@ -29,3 +29,11 @@ SDL_Texture* AssetManager::GetTexture(std::string id)
 {
 	return textures[id];
 }
+
+void AssetManager::CreateTarget(Vector2D pos, std::string id)
+{
+	auto& target(manager->addEntity());
+	target.addComponent<TransformComponent>(pos.x, pos.y);
+	target.addComponent<SpriteComponent>(id);
+	target.addGroup(Game::groupTargets);
+}

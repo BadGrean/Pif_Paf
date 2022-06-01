@@ -95,6 +95,13 @@ Vector2D& Vector2D::Multiply(float x)
 }
 */
 
+Vector2D operator ++(Vector2D& v)
+{
+	float k = sqrt((v.x) * (v.x) + (v.y) * (v.y));
+	v.x /= k;
+	v.y /= k;
+	return v;
+}
 
 Vector2D& operator-(Vector2D v1, const Vector2DInt v2) // xddd look at it
 {

@@ -38,6 +38,7 @@ public:
 	Vector2D& operator*=(const Vector2D& vec);
 	Vector2D& operator/=(const Vector2D& vec);
 
+	Vector2D& operator++();
 	//Vector2D& Multiply(float x);
 	friend Vector2D& operator-(Vector2D v1, const Vector2DInt v2);
 
