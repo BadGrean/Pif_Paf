@@ -202,7 +202,7 @@ void Game::update()
 
 						} while ((x - xN) ^ 2 + (y - yN) ^ 2 < 40000);
 					*/
-					assets->CreateTarget(Vector2D(1000, 100), "target");
+					assets->CreateTarget(Vector2D((std::rand()%1888), (std::rand() % 1048) ), "target");
 
 					//assets->CreateTarget(Vector2D(xN,yN), "target");
 					//assets->CreateTarget(xN, yN);
