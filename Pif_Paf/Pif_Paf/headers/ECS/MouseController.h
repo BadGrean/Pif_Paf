@@ -14,7 +14,7 @@ public:
 	{
 		transform = &entity->getComponent<TransformComponent>();
 	}
-
+	Vector2DInt pos;
 	void update() override
 	{
 		switch (Game::event.type)
@@ -27,14 +27,13 @@ public:
 				int y = ( int(transform->position.y) % 1080 + 1080) % 1080;
 				transform->velocity.y = -(Game::event.button.y - y) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
 				transform->velocity.x = -(Game::event.button.x - x) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
-				//assets->CreateBullet(Vector2D(500, 600), Vector2D(0.1, -0.1), 200, 2, "bullet"); //cant get to assets
 			}
 
 			break;
 		default:
-			if (transform->velocity.y < 5) //velocity is always between values of -1 and 1 so this is pointless
+			if (transform->velocity.y < 5)
 			{
-				transform->velocity.y += 0.005;
+				transform->velocity.y += 0.015;
 			}
 			break;
 		}

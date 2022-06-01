@@ -34,6 +34,17 @@ public:
 		groupAmmo,
 		groupBullets,
 	};
+	template <typename destT, typename srcT>
+	destT& absolute_cast(srcT& v)
+	{
+		return reinterpret_cast<destT&>(v);
+	}
+
+	template <typename destT, typename srcT>
+	const destT& absolute_cast(const srcT& v)
+	{
+		return reinterpret_cast<const destT&>(v);
+	}
 private:
 	SDL_Window* window;
 	

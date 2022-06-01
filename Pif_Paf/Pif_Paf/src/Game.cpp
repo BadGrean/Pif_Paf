@@ -108,8 +108,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player.addComponent<MouseController>();
 	player.addGroup(groupPlayers);
 
-	assets->CreateBullet(Vector2D(500, 500),Vector2D(2,0), 200, 2, "bullet"); //you cant just make vector (2,0)   for vec(x,y)  x^2+y^2=1  always
-	assets->CreateBullet(Vector2D(500, 600), Vector2D(0.1, -0.1), 200, 2, "bullet");
+	//assets->CreateBullet(Vector2D(500, 500),Vector2D(2,0), 200, 2, "bullet");   //you cant just make vector (2,0)   for vec(x,y)  x^2+y^2=1  always
+	//ssets->CreateBullet(Vector2D(500, 600), Vector2D(0.1, -0.1), 200, 2, "bullet");
 	
 	
 
@@ -128,7 +128,9 @@ void Game::handleEvents()
 	case SDL_MOUSEBUTTONDOWN: 
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
-			assets->CreateBullet(Vector2D(2, 3), Vector2D(1,2), 1000, 2, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
+			SDL_GetMouseState(&player.getComponent<MouseController>().pos.x, &player.getComponent<MouseController>().pos.y);
+			assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 150, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
+		
 		}
 		break;
 
@@ -174,13 +176,13 @@ void Game::render()
 	//Player::render(renderer, playerTexture, NULL, &dstPlayerRect);
 	//Bullet::render(renderer, bulletTexture, NULL, &dstBulletRect);
 	//SDL_RenderCopy(renderer, targetTexture, NULL, &dstTargetRect);
-	for (auto& p : players)
-	{
-		p->draw();
-	}
 	for (auto& b : bullets)
 	{
 		b->draw();
+	}
+	for (auto& p : players)
+	{
+		p->draw();
 	}
 	SDL_RenderPresent(renderer);
 }

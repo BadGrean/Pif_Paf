@@ -8,7 +8,7 @@ public:
 	Vector2D position;
 	Vector2D velocity;
 
-	int speed = 4;
+	int speed = 16;
 
 
 	TransformComponent()
@@ -33,7 +33,7 @@ public:
 	{
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
-		position.x = (int(position.x) % 1920 + 1920) % 1920 + position.x - floor(int(position.x)) - abs(position.x) / position.x * 1920 / 2 + 1920 / 2; //big chunk, but better than if statements
-		position.y = (int(position.y) % 1080 + 1080) % 1080 + position.y - floor(int(position.y)) - abs(position.y) / position.y * 1080 / 2 + 1080 / 2;
+		position.x = (int(position.x) % 1920 + 1920) % 1920;// +position.x - floor(int(position.x)) - abs(position.x) / position.x * 1920 / 2 + 1920 / 2; //big chunk, but better than if statements
+		position.y = (int(position.y) % 1080 + 1080) % 1080;// +position.y - floor(int(position.y)) - abs(position.y) / position.y * 1080 / 2 + 1080 / 2;
 	}
 };
