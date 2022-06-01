@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
 	
 	game = new Game();
-	game->init("Pif Paf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, false);
+	game->init("Pif Paf", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, true);
 	game->dataInit();
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
@@ -25,14 +25,10 @@ int main(int argc, char *argv[])
 		//game->time();
 		//if (game->deltaTime() > 10) //100tick cap + 100fps cap
 		//{
-
-			game->update();
-			//game->setLastFrameTime();
-			game->render();
-			//}
-
-				
-
+		game->update();
+		//game->setLastFrameTime();
+		game->render();
+		//}
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameDelay > frameTime)
 		{

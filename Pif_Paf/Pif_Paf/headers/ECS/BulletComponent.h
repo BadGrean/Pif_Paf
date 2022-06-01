@@ -27,7 +27,7 @@ public:
 		{
 			entity->destroy();
 		}
-		else if (transform->position.x > 1920 || transform->position.x < 0 || transform->position.y > 1080 || transform->position.y < 0)//will need fixing   
+		else if (transform->position.x > 1920 - 64 || transform->position.x < 0 || transform->position.y > 1080 - 64 || transform->position.y < 0)//will need fixing   
 		{
 			entity->destroy(); //either this statement is rewritten somehow, or the player movement will be obscurely bulky
 		}

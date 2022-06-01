@@ -148,12 +148,12 @@ void Game::handleEvents()
 			if (player.getComponent<MouseController>().ammunition > 0)
 			{
 				SDL_GetMouseState(&player.getComponent<MouseController>().pos.x, &player.getComponent<MouseController>().pos.y);
-				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 100, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
+				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 150, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
 				//player.getComponent<MouseController>().ammunition--; // it was substracted twice, this one is unnecesary and broke mouse controler if statement
 				framesSinceLastShot = 0;
 			}
 		}
-		if (event.button.button == SDL_BUTTON_RIGHT)
+		else if (event.button.button == SDL_BUTTON_RIGHT)
 		{
 			for (auto& a : ammo)	a->destroy();
 			for (auto& t : targets) t->destroy();
