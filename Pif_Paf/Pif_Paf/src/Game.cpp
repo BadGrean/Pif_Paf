@@ -15,8 +15,8 @@ AssetManager* Game::assets = new AssetManager(&manager);
 
 
 auto& player(manager.addEntity());
-auto& bullet(manager.addEntity());
-auto& target(manager.addEntity());
+//auto& bullet(manager.addEntity());
+//auto& target(manager.addEntity());
 
 enum groupLables : std::size_t
 {
@@ -186,9 +186,10 @@ void Game::update()
 				Vector2D tSize(32, 32);
 				if (bPos.x + bSize.x >= tPos.x && tPos.x + tSize.x >= bPos.x && bPos.y + bSize.y >= tPos.y && tPos.y + tSize.y >= bPos.y)
 				{
-					//destroy();
-					int x = (int)player.getComponent<TransformComponent>().position.x;
-					int y = (int)player.getComponent<TransformComponent>().position.y;
+					t->destroy();
+					b->destroy();
+					//int x = (int)player.getComponent<TransformComponent>().position.x;
+					//int y = (int)player.getComponent<TransformComponent>().position.y;
 
 
 
