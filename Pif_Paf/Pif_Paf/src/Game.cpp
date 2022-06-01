@@ -118,7 +118,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	assets->CreateTarget(Vector2D(1920 / 2 - 300, 1080 / 2 + 300), "target");
 	assets->CreateText(Vector2D(1800, 20), "Hello World!", "Sans.ttf", 24, "text");
 
-	//playMusic("assets/Music.wav");
+	playMusic("assets/Music.wav");
 
 }
 
@@ -147,7 +147,7 @@ void Game::handleEvents()
 			if (player.getComponent<MouseController>().ammunition > 0)
 			{
 				SDL_GetMouseState(&player.getComponent<MouseController>().pos.x, &player.getComponent<MouseController>().pos.y);
-				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 150, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
+				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 70, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
 				//player.getComponent<MouseController>().ammunition--; // it was substracted twice, this one is unnecesary and broke mouse controler if statement
 				framesSinceLastShot = 0;
 				system("CLS");

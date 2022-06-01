@@ -110,8 +110,8 @@ Vector2D& operator-(Vector2D v1, const Vector2DInt v2) // xddd look at it
 	v1.y -= v2.y;
 	v1.x /= -k;
 	v1.y /= -k;
-	v1.x *= 1;
-	v1.y *= 1;
+	v1.x *= 1.5;
+	v1.y *= 1.5;
 	return v1;
 }
 
