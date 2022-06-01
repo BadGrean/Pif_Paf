@@ -16,6 +16,7 @@ public:
 
 	void CreateBullet(Vector2D pos, Vector2D vel, int range, int speed, std::string id);
 
+	void CreateAmmo(Vector2D pos, std::string id);
 
 	//textures
 	void AddTexture(std::string id, const char* path);

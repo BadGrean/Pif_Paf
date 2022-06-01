@@ -27,6 +27,9 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
 	static AssetManager *assets;
+
+	int ammunition = 4,destroyedtargets = 0;
+	bool enable_ammmo = true;
 	enum groupLabels : std::size_t
 	{
 		groupPlayers,

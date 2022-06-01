@@ -22,11 +22,11 @@ public:
 		case SDL_MOUSEBUTTONDOWN:
 			if (Game::event.button.button == SDL_BUTTON_LEFT)
 			{
-				transform->velocity.y = 0;
-				int x = ( int(transform->position.x) % 1920 + 1920) % 1920;
-				int y = ( int(transform->position.y) % 1080 + 1080) % 1080;
-				transform->velocity.y = -(Game::event.button.y - y) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
-				transform->velocity.x = -(Game::event.button.x - x) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
+					transform->velocity.y = 0;
+					int x = (int(transform->position.x) % 1920 + 1920) % 1920;
+					int y = (int(transform->position.y) % 1080 + 1080) % 1080;
+					transform->velocity.y = -(Game::event.button.y - y) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
+					transform->velocity.x = -(Game::event.button.x - x) / sqrt((Game::event.button.y - y) * (Game::event.button.y - y) + (Game::event.button.x - x) * (Game::event.button.x - x));
 			}
 
 			break;

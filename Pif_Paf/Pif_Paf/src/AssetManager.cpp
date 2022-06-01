@@ -37,3 +37,12 @@ void AssetManager::CreateTarget(Vector2D pos, std::string id)
 	target.addComponent<SpriteComponent>(id);
 	target.addGroup(Game::groupTargets);
 }
+
+void AssetManager::CreateAmmo(Vector2D pos, std::string id)
+{
+	auto& ammo(manager->addEntity());
+	ammo.addComponent<TransformComponent>(pos.x, pos.y);
+	ammo.addComponent<SpriteComponent>(id);
+	ammo.addGroup(Game::groupAmmo);
+
+}
