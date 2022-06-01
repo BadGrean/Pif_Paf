@@ -18,6 +18,8 @@ public:
 
 	void CreateAmmo(Vector2D pos, std::string id);
 
+	void CreatePlayer(Vector2D pos, std::string id);
+
 	void CreateText(Vector2D pos, std::string text, std::string fontType, int fontSize, std::string id);
 
 	//textures

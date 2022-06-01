@@ -35,10 +35,10 @@ public:
 	bool isRunning, isPaused = false;
 	int windowSizeX, windowSizeY, standardSize;
 	unsigned int lastTime = 0;
+	unsigned int framesSinceLastShot;
 private:
 
 	friend class Player;
 	friend class Game;
 	friend class Bullet;
-	friend class MouseController;
 };

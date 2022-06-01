@@ -47,6 +47,14 @@ void AssetManager::CreateAmmo(Vector2D pos, std::string id)
 
 }
 
+void AssetManager::CreatePlayer(Vector2D pos, std::string id)
+{
+	auto& player(manager->addEntity());
+	player.addComponent<TransformComponent>(pos.x, pos.y);
+	player.addComponent<SpriteComponent>(id);
+	player.addGroup(Game::groupPlayers);
+}
+
 void AssetManager::CreateText(Vector2D pos, std::string msg, std::string fontType, int fontSize, std::string id)
 {
 	auto& text(manager->addEntity());

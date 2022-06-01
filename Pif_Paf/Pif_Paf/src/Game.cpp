@@ -106,7 +106,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	//ECS implementation dont't kill me for what have i done 
 	
 	
-	player.addComponent<TransformComponent>(100,500);
+	player.addComponent<TransformComponent>(1920 / 2, 1080 / 2 - 300);
 	player.addComponent<SpriteComponent>("player");
 	player.addComponent<MouseController>();
 	player.addGroup(groupPlayers);
@@ -114,13 +114,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	//assets->CreateBullet(Vector2D(500, 500),Vector2D(2,0), 200, 2, "bullet");   //you cant just make vector (2,0)   for vec(x,y)  x^2+y^2=1  always
 	//assets->CreateBullet(Vector2D(500, 600), Vector2D(0.1, -0.1), 200, 2, "bullet");
 	
-	
-	assets->CreateAmmo(Vector2D(200, 200), "ammo");
-	assets->CreateTarget(Vector2D(100, 100), "target");
+	//assets->CreatePlayer(Vector2D(1920 / 2, 1080 / 2 - 100), "player");
+	assets->CreateAmmo(Vector2D(1920 / 2 + 300, 1080 / 2 + 300), "ammo");
+	assets->CreateTarget(Vector2D(1920 / 2 - 300, 1080 / 2 + 300), "target");
 	assets->CreateText(Vector2D(1800, 20), "Hello World!", "Sans.ttf", 24, "text");
 
 	//playMusic("assets/Music.wav");
-
 
 }
 
@@ -151,7 +150,22 @@ void Game::handleEvents()
 				SDL_GetMouseState(&player.getComponent<MouseController>().pos.x, &player.getComponent<MouseController>().pos.y);
 				assets->CreateBullet(player.getComponent<TransformComponent>().position, Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 100, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
 				//player.getComponent<MouseController>().ammunition--; // it was substracted twice, this one is unnecesary and broke mouse controler if statement
+				framesSinceLastShot = 0;
 			}
+		}
+		if (event.button.button == SDL_BUTTON_RIGHT)
+		{
+			for (auto& a : ammo)	a->destroy();
+			for (auto& t : targets) t->destroy();
+			for (auto& b : bullets) b->destroy();
+			player.getComponent<TransformComponent>().position = Vector2D(1920 / 2, 1080 / 2 - 300);
+			player.getComponent<TransformComponent>().velocity = Vector2D(0, 0);
+			assets->CreateAmmo(Vector2D(1920 / 2 + 300, 1080 / 2 +300), "ammo");
+			assets->CreateTarget(Vector2D(1920 / 2 - 300, 1080 / 2+ 300), "target");
+			framesSinceLastShot = 0;
+			destroyedtargets = 0;
+			player.getComponent<MouseController>().ammunition = 4;
+			std::cout << "________________\nNEW GAME\n";
 		}
 		break;	
 
@@ -176,9 +190,10 @@ void Game::handleEvents()
 
 void Game::update()
 {
-
-
-		for (auto it = 0; it < bullets.size(); ++it)
+	framesSinceLastShot++;
+	if (framesSinceLastShot < 180)
+	{
+		for (auto it = 0; it < bullets.size(); it++)
 		{
 			auto b = bullets[it];
 			//?zapisz dane z entity1
@@ -198,17 +213,13 @@ void Game::update()
 
 					assets->CreateTarget(Vector2D((std::rand() % (1920 - 64)), (std::rand() % (1080 - 64))), "target");
 
-					if (enable_ammmo && ammo.size() < 1)
+					if (enable_ammmo && ammo.size() < 2)
 					{
 						assets->CreateAmmo(Vector2D((std::rand() % (1920 - 64)), (std::rand() % (1920 - 64))), "ammo");
 
 					}
-
-
-
-					//assets->CreateTarget(Vector2D(xN,yN), "target");
-					//assets->CreateTarget(xN, yN);
 					std::cout << "Score: " << destroyedtargets << "\n";
+
 				}
 			}
 		}
@@ -236,13 +247,24 @@ void Game::update()
 
 
 
-	//Player::update(&dstPlayerRect);
-	//Bullet::update(&dstBulletRect);
-	//walls loop back
-	//player->update();
-	manager.refresh();
-	manager.update();
-	//aby modulo z ujemnych dzialalo poprawnie
+		//Player::update(&dstPlayerRect);
+		//Bullet::update(&dstBulletRect);
+		//walls loop back
+		//player->update();
+		manager.refresh();
+		manager.update();
+		//aby modulo z ujemnych dzialalo poprawnie
+	}
+	else
+	{
+		SDL_Event sdlevent;
+		sdlevent.type = SDL_MOUSEBUTTONDOWN;
+		sdlevent.button.button = SDL_BUTTON_RIGHT;
+
+		SDL_PushEvent(&sdlevent);
+		//framesSinceLastShot = 0;
+	}
+
 }
 
 
