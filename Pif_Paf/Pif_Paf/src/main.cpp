@@ -25,10 +25,14 @@ int main(int argc, char *argv[])
 		//game->time();
 		//if (game->deltaTime() > 10) //100tick cap + 100fps cap
 		//{
-		game->update();
-		//game->setLastFrameTime();
-		game->render();
-		//}
+		if (!game->isPaused)
+		{
+			game->update();
+			//game->setLastFrameTime();
+			game->render();
+			//}
+		}
+		
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameDelay > frameTime)
 		{

@@ -35,6 +35,7 @@ public:
 		srcRect.x = srcRect.y = 0;
 		srcRect.w = srcRect.h = 32;//pixel value (temp)
 		destRect.w = destRect.h = 64;//scaling here 32 * 2
+
 	}
 	void update() override
 	{
@@ -43,6 +44,14 @@ public:
 	}
 	void draw() override
 	{
+
+		TextureManager gradnient;
+		SDL_Rect gd, zer;
+		gd.x = entity->getComponent<TransformComponent>().position.x - 64;
+		gd.y = entity->getComponent<TransformComponent>().position.y - 64;
+		gd.w = gd.h = 192;
+		zer.x = zer.y = zer.w = zer.h = 0;
+		gradnient.Draw(gradnient.LoadTexture("assets/fade.png"), zer, gd);
 		TextureManager::Draw(texture, srcRect, destRect);
 	}
 };

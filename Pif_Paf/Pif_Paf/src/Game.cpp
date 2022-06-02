@@ -3,6 +3,7 @@
 #include "ECS/Components.h"
 #include "Vector2D.h"
 #include "AssetManager.h"
+#include <fstream>
 SDL_Texture* playerTexture, * targetTexture, * pauseTexture, * bulletTexture;
 SDL_Rect srcPlayerRect, dstPlayerRect, dstTargetRect, dstBulletRect;
 
@@ -56,6 +57,11 @@ void Game::dataInit()
 	dstBulletRect.x = 1000;
 	dstBulletRect.y = 100;
 
+	std::fstream myfile;
+	myfile.open("assets/highscore.txt");
+	myfile >> highscore;
+	myfile.close();
+
 	scaleToWindowSize();
 }
 
@@ -95,6 +101,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	assets->AddTexture("bullet", "assets/bullet.png");
 	assets->AddTexture("target", "assets/Target.svg.png");
 	assets->AddTexture("ammo", "assets/ammo.png");
+	//gradnient.LoadTexture("assets/gradient.png");
 	//Bullet::textureInit(renderer, targetTexture); //dont load texture  what a pity
 
 	/*playerTexture = TextureManager::LoadTexture("assets/Player.png", renderer);
@@ -140,7 +147,7 @@ void Game::handleEvents()
 		break;
 
 	case SDL_MOUSEBUTTONDOWN: 
-		if (event.button.button == SDL_BUTTON_LEFT)
+		if (event.button.button == SDL_BUTTON_LEFT && !isPaused)
 		{
 			//SDL_GetMouseState(&absolute_cast<int>(player.getComponent<MouseController>().pos.x), &absolute_cast<int>(player.getComponent<MouseController>().pos.y)); //Vector2D not Vector2DInt
 			//assets->CreateBullet(player.getComponent<TransformComponent>().position, ~Vector2D(player.getComponent<TransformComponent>().position - player.getComponent<MouseController>().pos), 150, 1, "bullet");//another attempt, but here I cant get player Position easily and I dont wanna ruin the code I guess
@@ -180,8 +187,9 @@ void Game::handleEvents()
 			{
 				SDL_RenderCopy(renderer, pauseTexture, NULL, &dstPlayerRect);
 				SDL_RenderPresent(renderer);
-				SDL_Delay(3000);//instead of menu
+				//SDL_Delay(3000);//instead of menu
 				setLastFrameTime();
+
 			}
 			break;
 		}
@@ -272,6 +280,20 @@ void Game::render()
 	//Player::render(renderer, playerTexture, NULL, &dstPlayerRect);
 	//Bullet::render(renderer, bulletTexture, NULL, &dstBulletRect);
 	//SDL_RenderCopy(renderer, targetTexture, NULL, &dstTargetRect);
+
+	/*
+
+	TextureManager gradnient;
+	SDL_Rect gd, zer;
+	gd.x = player.getComponent<TransformComponent>().position.x + framesSinceLastShot/2*64/180;
+	gd.y = player.getComponent<TransformComponent>().position.y+64;
+	gd.w = (180 - framesSinceLastShot)*64/180;
+	gd.h = 8;
+	zer.x = zer.y = zer.w = zer.h = 0;
+	gradnient.Draw(gradnient.LoadTexture("assets/gradient.png"), zer, gd);
+	*/
+	
+
 	for (auto& b : bullets)
 	{
 		b->draw();
@@ -288,6 +310,44 @@ void Game::render()
 	{
 		p->draw();
 	}
+
+	if (destroyedtargets > highscore)
+	{
+		newHighscore(destroyedtargets);
+	}
+	TextureManager timeBar, ammoCount, currentScore;
+	SDL_Rect tB, aC, zer, cS;
+	tB.x = 1720 + framesSinceLastShot;
+	tB.y = 20;
+	tB.w = 180 - framesSinceLastShot;
+	tB.h = 20;
+	zer.x = zer.y = zer.w = zer.h = 0;
+	timeBar.Draw(timeBar.LoadTexture("assets/gradient.png"), zer, tB);
+
+	aC.y = 20 + 20 + 1;
+	aC.h = aC.w = 10;
+	for (int i = 0; i < player.getComponent<MouseController>().ammunition; i++)
+	{
+		aC.x = 1900 - 10 - 10 * i;
+		ammoCount.Draw(ammoCount.LoadTexture("assets/bullet.png"), zer, aC);
+	}
+
+	cS.y = 5;
+	cS.h = cS.w = 10;
+	int power = 0;
+	int score = destroyedtargets;
+	do
+	{
+		cS.x = 1900 - 10 - 10 * power;
+		ammoCount.Draw(ammoCount.LoadTexture("assets/fade.png"), zer, cS);
+		if (score % 2)
+		{
+			ammoCount.Draw(ammoCount.LoadTexture("assets/Target.svg.png"), zer, cS);
+		}
+		score /= 2;
+		power++;
+	} while (score > 0);
+
 	SDL_RenderPresent(renderer);
 }
 

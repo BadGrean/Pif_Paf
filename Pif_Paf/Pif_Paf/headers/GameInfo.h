@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <iostream>
+#include <fstream>
 
 
 class GameInfo
@@ -31,9 +32,15 @@ public:
 			}
 		}
 	};
-
+	void newHighscore(int destroyedtargets)
+	{
+		std::ofstream myfile;
+		myfile.open("assets/highscore.txt", std::ofstream::out | std::ofstream::trunc);
+		myfile << destroyedtargets;
+		myfile.close();
+	};
 	bool isRunning, isPaused = false;
-	int windowSizeX, windowSizeY, standardSize;
+	int windowSizeX, windowSizeY, standardSize, highscore;
 	unsigned int lastTime = 0;
 	unsigned int framesSinceLastShot;
 private:
